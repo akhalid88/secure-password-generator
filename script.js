@@ -1,31 +1,67 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-////////////
-//TEST CODE
+//Init global arrays
+var lowercaseArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var uppercaseArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var numericArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+var specialArray = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
 
-var lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var numeric = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-var special = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'];
-var masterArray = [];
-console.log(lowercase);
-console.log(uppercase);
-console.log(numeric);
-console.log(special);
-console.log(special[23]);
+function generatePassword() {
+  //Init local variables
+  var pwLength = 0;
+  var pwString = "";
+  var masterArray = [];
+  var addLowercase;
+  var addUppercase;
+  var addNumeric;
+  var addSpecial;
 
-console.log(masterArray);
-masterArray = masterArray.concat(lowercase);
-masterArray = masterArray.concat(uppercase);
-masterArray = masterArray.concat(numeric);
-masterArray = masterArray.concat(special);
-console.log(masterArray);
-console.log(masterArray.length);
+  //Prompt with check to see if length selected is <8 or > 128 and loop if it is
+  do {
+    pwLength = prompt("How long do you want your password? Please enter a value between 8-128");
+    if (pwLength < 8 || pwLength > 128) {
+      alert("Please enter a value between 8 and 128");
+      console.log("pwLength:  " + pwLength);
+    }
+  } 
+  while (pwLength < 8 || pwLength > 128);
 
+  //Prompt for criteria; loops if none are selected
+  do {
+    alert("Please select at least 1 criteria.");
+    
+    addLowercase = confirm("Include lowercase characters?");
+    addUppercase = confirm("Include uppercase characters?");
+    addNumeric = confirm("Include numerical characters?");
+    addSpecial = confirm("Include special characters?");
 
-//END TEST CODE
-///////////////
+    if (addLowercase) {
+      masterArray = masterArray.concat(lowercaseArray);
+    }
+    if (addUppercase) {
+      masterArray = masterArray.concat(uppercaseArray);
+    }
+    if (addNumeric) {
+      masterArray = masterArray.concat(numericArray);
+    } 
+    if (addSpecial) {
+      masterArray = masterArray.concat(specialArray);
+    }
+  } while (masterArray === 0)
+
+  //DEBUG: Log array to console
+  console.log(masterArray);
+
+  for (var i = 0; i < pwLength; i++) {
+    var temp = masterArray[Math.floor(Math.random() * 94)]
+    //pwString = pwString.concat(masterArray[Math.floor(Math.random() * 94)]);
+    pwString = pwString.concat(temp);
+  }
+  console.log(pwString);
+  console.log(pwString.length);
+}
+
 
 // Write password to the #password input
 function writePassword() {
@@ -34,32 +70,12 @@ function writePassword() {
 
   passwordText.value = password;
 
-  //  Variablles needed
-  // array of each criteria ?possible object? 
-  //
-
-
   //============
   // GIVEN I need a new, secure password
   // WHEN I click the button to generate a password
   // THEN I am presented with a series of prompts for password criteria
   // DEFAULT CODE
-  
-  // WHEN prompted for password criteria
-  // THEN I select which criteria to include in the password
-  //create arrays for each type of criteria and fill with all possible options
-  var lowercase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-  var uppercase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-  var numeric = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-  var special = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', ']', '^', '_', '`', '{', '|', '}', '~']; // , '\\' between [ and ]
-  // WHEN prompted for the length of the password
-  // THEN I choose a length of at least 8 characters and no more than 128 characters
-  //Should there be a default value?
-  var chooseLength = prompt("How long do you want your password? Please enter a value between 8-128");
 
-  // WHEN prompted for character types to include in the password
-  // THEN I choose lowercase, uppercase, numeric, and/or special characters
-  //prompt user for each type and log to variable
   //store results in object? 
   // var criteria = {
   //   lowercase: false,
@@ -67,34 +83,9 @@ function writePassword() {
   //   numeric: false,
   //   special: false
   // }
-  //chooseLowercase, chooseUppercase, chooseNumeric, chooseSpecial
-  //if chooseLowercase true
-  //criteria.lowercase = true
-  //masterArray = masterArray.concat(lowercase)
-  //
-  //if chooseUppercase true
-  //criter.uppercase = true
-  //masterArray = masterArray.concat(uppercase)
-  //
-  //if chooseNumeric true
-  //criteria.numeric 
-  //masterArray = masterArray.concat(numeric)
-  //
-  //if chooseSpecial true
-  //criteria.special 
-  //masterArray = masterArray.concat(special)
-  //
-  //check to see if masterArray is null
-  //if chiseCriteria = 0 restart loop?
 
   //research logical NAND / NOR 
 
-
-  // WHEN I answer each prompt
-  // THEN my input should be validated and at least one character type should be selected
-  //if !chooseLowercase && !chooseUppercase && !chooseNumeric && !chooseSpecial
-  //alert user "you must select at least 1 criteria"
-  //loop back to beginning (maybe)
 
   // WHEN all prompts are answered
   // THEN a password is generated that matches the selected criteria

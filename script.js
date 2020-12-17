@@ -17,16 +17,19 @@ function generatePassword() {
   var addNumeric;
   var addSpecial;
 
+  console.log(pwLength);
   //Prompt with check to see if length selected is <8 or > 128 and loop if it is
   do {
     pwLength = prompt("How long do you want your password? Please enter a value between 8-128");
     if (pwLength < 8 || pwLength > 128) {
       alert("Please enter a value between 8 and 128");
+      //DEBUG: check pwLength
       console.log("pwLength:  " + pwLength);
     }
   } 
   while (pwLength < 8 || pwLength > 128);
 
+  console.log(pwLength);
   //Prompt for criteria; loops if none are selected
   do {
     alert("Please select at least 1 criteria.");
@@ -54,12 +57,14 @@ function generatePassword() {
   console.log(masterArray);
 
   for (var i = 0; i < pwLength; i++) {
-    var temp = masterArray[Math.floor(Math.random() * 94)]
-    //pwString = pwString.concat(masterArray[Math.floor(Math.random() * 94)]);
-    pwString = pwString.concat(temp);
+    //var temp = masterArray[Math.floor(Math.random() * 94)]
+    pwString = pwString.concat(masterArray[Math.floor(Math.random() * masterArray.length)]);
+    //pwString = pwString.concat(temp);
   }
-  console.log(pwString);
-  console.log(pwString.length);
+  console.log("Password" + pwString);
+  console.log("Passowrd length " + pwString.length);
+  console.log(masterArray);
+  return pwString;
 }
 
 
@@ -68,7 +73,11 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
+  console.log("Password: " + password);
+  console.log("------------------------");
+
   passwordText.value = password;
+  
 
   //============
   // GIVEN I need a new, secure password

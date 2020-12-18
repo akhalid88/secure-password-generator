@@ -29,7 +29,9 @@ function generatePassword() {
   } 
   while (pwLength < 8 || pwLength > 128);
 
+  //DEBUG:
   console.log(pwLength);
+  console.log("Starting Array: " + masterArray);
   //Prompt for criteria; loops if none are selected
   do {
     alert("Please select at least 1 criteria.");
@@ -51,18 +53,18 @@ function generatePassword() {
     if (addSpecial) {
       masterArray = masterArray.concat(specialArray);
     }
-  } while (masterArray === 0)
+  } while (masterArray.length == 0);
 
   //DEBUG: Log array to console
   console.log(masterArray);
 
   for (var i = 0; i < pwLength; i++) {
-    //var temp = masterArray[Math.floor(Math.random() * 94)]
     pwString = pwString.concat(masterArray[Math.floor(Math.random() * masterArray.length)]);
-    //pwString = pwString.concat(temp);
   }
   console.log("Password" + pwString);
   console.log("Passowrd length " + pwString.length);
+
+  //DEBUG: Log array to conosole
   console.log(masterArray);
   return pwString;
 }
@@ -73,47 +75,13 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
+  //DEBUG: 
   console.log("Password: " + password);
   console.log("------------------------");
 
   passwordText.value = password;
   
-
-  //============
-  // GIVEN I need a new, secure password
-  // WHEN I click the button to generate a password
-  // THEN I am presented with a series of prompts for password criteria
-  // DEFAULT CODE
-
-  //store results in object? 
-  // var criteria = {
-  //   lowercase: false,
-  //   uppercase: false,
-  //   numeric: false,
-  //   special: false
-  // }
-
-  //research logical NAND / NOR 
-
-
-  // WHEN all prompts are answered
-  // THEN a password is generated that matches the selected criteria
-  //with each selection of 
-  //random number times the lenght of the array
-  //Math.random() * masterArray.length();
-
-
-  // while currentLetter < passwordLength
-  //   
-  //   num = Math.floor(Math.random() * 94);
-  //   pwString = pwString.concat(masterArray[num])
-  //   currentLetter++;
-  // 
-  // }
-
-  // WHEN the password is generated
-  // THEN the password is either displayed in an alert or written to the page
-  //alert(generatePassword());
+  alert("Your password has been generated below. Have a nice day!");
 }
 
 // Add event listener to generate button

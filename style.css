@@ -116,6 +116,13 @@ button[disabled] {
   border-radius: 6px;
   resize: none;
   overflow: hidden;
+  /**/
+  color: black;
+  background: black;
+}
+#password::hover {
+  color: white;
+  background: black;
 }
 
 @media (max-width: 690px) {

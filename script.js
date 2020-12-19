@@ -21,12 +21,10 @@ function generatePassword() {
 
   //Prompt with check to see if length selected is <8 or > 128 and loop if it is
   do {
+    alert("Please enter a value between 8 and 128");
     pwLength = prompt("How long do you want your password? Please enter a value between 8-128");
-    if (pwLength < 8 || pwLength > 128) {
-      alert("Please enter a value between 8 and 128");
-    }
   } 
-  while (pwLength < 8 || pwLength > 128 || pwLength === "/^[0-9]+$/");
+  while (pwLength < 8 || pwLength > 128);
 
 
 
@@ -49,7 +47,7 @@ function generatePassword() {
   } while (masterArray.length == 0);
 
 
-  //for the requeted length of a password, iterate, and add random index of masterArray
+  //for the requested length of a password, iterate, and add random index of masterArray
   for (var i = 0; i < pwLength; i++) {
     pwString = pwString.concat(masterArray[Math.floor(Math.random() * masterArray.length)]);
   }
